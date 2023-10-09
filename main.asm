@@ -34,24 +34,49 @@ main		MOV.B #0x3F, P2DIR
 	        MOV #FWKEY,&FCTL3				; Clear LOCK
 	        MOV #FWKEY+WRT,&FCTL1			; Enable write
 
-	        ; Guarda a string 'hello' na flash
-	        MOV #0x1816, 0(R7)				; h 0x68
-	        MOV #0x1516, 2(R7)				; e 0x65
-	        MOV #0x1C16, 4(R7)				; l 0x6C
-	        MOV #0x1C16, 6(R7)				; l 0x6C
-	        MOV #0x1F16, 8(R7)				; o 0x6F
+	        ; Grava uma string na flash
+	        MOV #0x1314, 0(R7)				; C 0x43
+	        MOV #0x1116, 2(R7)				; a 0x61
+	        MOV #0x1317, 4(R7)				; s 0x73
+	        MOV #0x1417, 6(R7)				; t 0x74
+	        MOV #0x1516, 8(R7)				; e 0x65
+	        MOV #0x1C16, 10(R7)				; l 0x6C
+	        MOV #0x1F16, 12(R7)				; o 0x6F
+
+	        MOV #0x1012, 14(R7)				; ' ' 0x20
+
+	        MOV #0x1214, 16(R7)				; B 0x42
+	        MOV #0x1217, 18(R7)				; r 0x72
+	        MOV #0x1116, 20(R7)				; a 0x61
+	        MOV #0x1E16, 22(R7)				; n 0x6E
+	        MOV #0x1316, 24(R7)				; c 0x63
+	        MOV #0x1F16, 26(R7)				; o 0x6F
 
 			; Move o cursor do LCD para a coluna 0 da linha 1
-	        MOV #0x000C, 10(R7) 			; 0x0C
+	        MOV #0x000C, 28(R7) 			; (0, 1) 0xC0
 
-			; Guarda a string 'cimatec' na flash
-	        MOV #0x1316, 12(R7) ; 0x63
-	        MOV #0x1916, 14(R7) ; 0x69
-	        MOV #0x1D16, 16(R7) ; 0x6D
-	        MOV #0x1116, 18(R7) ; 0x61
-	        MOV #0x1417, 20(R7) ; 0x74
-	        MOV #0x1516, 22(R7) ; 0x65
-	        MOV #0x1316, 24(R7) ; 0x63
+	        MOV #0x1015, 30(R7)				; P 0x50
+	        MOV #0x1116, 32(R7)				; a 0x61
+	        MOV #0x1017, 34(R7)				; p 0x70
+	        MOV #0x1116, 36(R7)				; a 0x61
+	        MOV #0x1916, 38(R7)				; i 0x69
+
+	        MOV #0x1012, 40(R7)				; ' ' 0x20
+
+	        MOV #0x1416, 42(R7)				; d 0x64
+	        MOV #0x1F16, 44(R7)				; o 0x6F
+
+	        MOV #0x1012, 46(R7)				; ' ' 0x20
+
+	        MOV #0x1116, 48(R7)				; a 0x61
+	        MOV #0x1E16, 50(R7)				; n 0x6E
+	        MOV #0x1F16, 52(R7)				; o 0x6F
+	        MOV #0x1112, 54(R7)				; ! 0x21
+
+	        MOV #0x1012, 56(R7)				; ' ' 0x20
+
+	        MOV #0x1C13, 58(R7)				; < 0x3C
+	        MOV #0x1313, 60(R7)				; 3 0x33
 
 	        ; Bloqueia gravação na meória flash
 	        MOV #FWKEY,&FCTL1 ; Done. Clear WRT
@@ -110,7 +135,7 @@ send     	; Rotina de envio de instruções para o displat LCD
 
 			; Delay simulado com 2 contadores
 	        MOV #2, R10
-aux1        MOV #40000, R11
+aux1        MOV #30000, R11
 aux2        DEC R11
 	        JNZ aux2
 	        DEC R10
@@ -138,7 +163,7 @@ timer_rti 	PUSH R5
 			POP R7
 			POP R5
 
-			reti
+			RETI
                                             
 ;-------------------------------------------------------------------------------
 ; Stack Pointer definition
